@@ -1,4 +1,7 @@
 node_modules
+.env
 .vscode
 .glitchdotcom.json
 .node-gyp
+.env
+.env-rtr
