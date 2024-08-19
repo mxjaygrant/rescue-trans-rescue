@@ -21,7 +21,6 @@ module.exports = {
   
   /**
    * Get the options in the database
-   *
    * Return everything in the Choices table
    * Throw an error in case of db connection issues
    */
