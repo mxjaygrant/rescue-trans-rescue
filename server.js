@@ -201,7 +201,7 @@ fastify.post("/reset", async (request, reply) => {
 
 // Run the server and report out to the logs
 fastify.listen(
-{ port: 8181, host: "0.0.0.0" },							// ! post set to 8181 for development
+{ port: process.env.PORT, host: "0.0.0.0" },							// ! post set to 8181 for development
   function (err, address) {									// replace 8181 with process.env.PORT
     if (err) {
       fastify.log.error(err);
