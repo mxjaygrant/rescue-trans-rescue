@@ -1,0 +1,26 @@
+/***********/
+/* Details */
+/***********/
+
+details {
+  margin-bottom: 0.1rem;
+}
+
+details summary {
+  color: var(--color-bg);
+  background-color: var(--color-primary);
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: solid var(--color-bg);
+  cursor: pointer;
+}
+
+#expand-all summary {
+  background-color: var(--color-accent);
+}
+
+details p,
+details details {
+  padding: 0 0.75rem;
+}

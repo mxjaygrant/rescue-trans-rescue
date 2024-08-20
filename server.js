@@ -5,12 +5,18 @@
  *
  * The API returns the front-end UI handlebars pages, or
  * Raw json if the client requests it with a query parameter ?raw=json
+ * 
+ * JRG says: irritatingly, this doesn't have auto-routing built in. 
+ * which is certainly a Choice, makes for good security but becomes a maintenance problem
+ * TODO: auto-routing pages to corresponding hbs templates
+ * 		 falling back to /pagename or /pagename.html
+ * 		 rejecting requests that result in 404 
  */
 
 // Utilities we need
 const fs = require("fs");
 const path = require("path");
-require('dotenv').config();
+require('dotenv').config();                             // ! development only
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -112,6 +118,24 @@ fastify.post("/", async (request, reply) => {
     : reply.view("/src/pages/index.hbs", params);
 });
 
+
+fastify.get("/artists", async (request, reply) => {
+  let params = request.query.raw ? {} : { seo: seo };
+
+  params.results = false;
+  const artists = await db.getArtists();
+  if (artists) {
+    params.artists = artists;
+  }
+
+  console.log(artists);
+ 
+  return request.query.raw
+  ? reply.send(params)
+  : reply.view("/src/pages/artists.hbs", params);
+  
+});
+
 /**
  * Admin endpoint returns log of votes
  *
@@ -129,7 +153,7 @@ fastify.get("/logs", async (request, reply) => {
   // Send the log list
   return request.query.raw
     ? reply.send(params)
-    : reply.view("/src/pages/admin.hbs", params);
+    : reply.view("/src/pages/logs.hbs", params);
 });
 
 /**
@@ -172,13 +196,13 @@ fastify.post("/reset", async (request, reply) => {
   // Send an unauthorized status code if the user credentials failed
   return request.query.raw
     ? reply.status(status).send(params)
-    : reply.status(status).view("/src/pages/admin.hbs", params);
+    : reply.status(status).view("/src/pages/logs.hbs", params);
 });
 
 // Run the server and report out to the logs
 fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
+{ port: 8181, host: "0.0.0.0" },							// ! post set to 8181 for development
+  function (err, address) {									// replace 8181 with process.env.PORT
     if (err) {
       fastify.log.error(err);
       process.exit(1);

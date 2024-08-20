@@ -1,13 +1,13 @@
 # TODO 🚧
 
 * Create handlebars template from rescue-trans-rescue 
-    * index.hbs - replicate existing
-    * artists.hbs - replicate existing, turn into template structure
+    * ~~index.hbs - replicate existing~~
+    * artists.hbs - replicate existing, ~~turn into template structure~~
     * inventory.hbs - a grid based template for all items
     * item.hbs - a single page template for examination [jrg: do we need this? is this where ko-fi comes in?]
 * Remove excess JS from Airtable calls
     * Largely cruft from import of hello-airtable
-* Write JS traversing tables inventory, artists
+* Write JS traversing tables inventory, ~~artists~~
 * Ensure accessibility for blind/visually impaired
 * Clean up SEO
 * Steal underpants

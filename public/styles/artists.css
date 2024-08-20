@@ -1,0 +1,81 @@
+/***************/
+/* Artist page */
+/***************/
+
+.artist-grid {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5%;
+  min-height: var(--wrapper-height);
+}
+
+.artist {
+  flex: 0 0 100%;
+}
+
+@media (min-width: 450px) {
+  .artist {
+    flex: 0 0 47.5%;
+  }
+}
+
+@media (min-width: 750px) {
+  .artist {
+    flex: 0 0 30%;
+  }
+}
+
+@media (min-width: 1050px) {
+  .artist {
+    flex: 0 0 21.25%;
+  }
+}
+
+@media (min-width: 1550px) {
+  .artist {
+    flex: 0 0 16%;
+  }
+}
+
+.artist img {
+  display: block;
+  max-width: 100%;
+  max-height: (--var-image-max-width);
+  margin: var(--image-margin) auto 0;
+  border: solid var(--color-bg);
+  border-radius: 10% 10% 0% 0%;
+}
+
+.social-grid {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.social {
+  border-radius: 1rem;
+}
+
+@media (hover: hover) {
+  .social:hover {
+    background: var(--color-accent);
+  }
+}
+
+.social a {
+  font-size: 1.5rem;
+}
+
+@media (hover: hover) {
+  .social:hover a {
+    color: var(--color-bg);
+  }
+}
+
+.social i {
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.social a:after {
+  content: none;
+}
