@@ -22,7 +22,14 @@ https://rtr-dev.glitch.me with source at https://github.com/mxjaygrant/rescue-tr
 
 ## Self-hosted Development
 Requirements: node.js, npm
-Recommendations: dotenv package
 
-> npm install
-> npm start
+Recommended packages: dotenv, nodemon
+
+To install:
+`npm install`
+
+To start:
+`npm start`
+
+To run with nodemon:
+`npm run watch`
