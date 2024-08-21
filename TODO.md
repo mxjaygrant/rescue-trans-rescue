@@ -7,6 +7,7 @@
         * social widget
         * ~~sort by artists name, alphabetically~~
         * consistent image sizing
+        * possibly need to cache images https://support.airtable.com/docs/airtable-attachment-url-behavior
     * inventory.hbs - a grid based template for all items
     * item.hbs - a single page template for examination [jrg: do we need this? is this where ko-fi comes in?]
 * Remove excess JS from Airtable calls
