@@ -47,70 +47,12 @@ module.exports = {
 
 		// We use a try catch block in case of db errors
 		try {
-			const artists= await base("artists")
-				.select()
-				.firstPage(); 
-			console.log(artists);
-			
-			// Return the coding language fields
-			return artists.map(artists => artists.fields);
+			return true;
 		} catch (dbError) {
 			// Database connection error
 			console.error(dbError);
 		}
 	}, 
-
-	/**
-	 * Process a user vote
-	 *
-	 * Receive the user vote string from server
-	 * Add a log entry
-	 * Find and update the chosen option
-	 * Return the updated list of votes
-	 */
-/* 	processVote: async vote => {
-		// Insert new Log table entry indicating the user choice and timestamp
-		try {
-			await base("Log").create([
-				{
-					fields: {
-						choice: vote,
-						time: new Date().toISOString()
-					}
-				}
-			]);
-
-			// We need to filter for the record containing the user chosen language to update its total
-			let filterStr = '{language}="' + vote + '"';
-
-			// Find the choice the user picked - it'll be the first one [0]
-			const choice = await base("Choices")
-				.select({
-					filterByFormula: filterStr
-				})
-				.firstPage();
-
-			// Update the number of picks in the chosen language using id and field to update
-			await base("Choices").update([
-				{
-					id: choice[0].id,
-					fields: {
-						picks: choice[0].get("picks") + 1
-					}
-				}
-			]);
-
-			// Get updated choices from the database for the chart
-			const options = await base("Choices")
-				.select()
-				.firstPage();
-
-			// Return the coding language fields
-			return options.map(choice => choice.fields);
-		} catch (dbError) {
-			console.error(dbError);
-		}
-	}, */
 
 	/**
 	 * Get logs
@@ -183,5 +125,4 @@ module.exports = {
 			console.error(dbError);
 		}
 	} */
-
 };

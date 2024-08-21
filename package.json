@@ -5,9 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon --watch public --watch src --watch src/pages server.js"
+    "watch": "node --watch server.js"
   },
-  
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
     "@fastify/static": "^6.10.2",
@@ -15,7 +14,8 @@
     "airtable": ">=0.12.2",
     "dotenv": "^16.4.5",
     "fastify": "^4.21.0",
-    "handlebars": "^4.7.8"
+    "handlebars": "^4.7.8",
+    "livereload": "^0.9.3"
   },
   "engines": {
     "node": ">=14.x"

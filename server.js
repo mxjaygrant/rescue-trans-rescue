@@ -65,21 +65,6 @@ fastify.get("/", async (request, reply) => {
 	*/
 	let params = request.query.raw ? {} : { seo: seo };
 
-	// Get the available choices from the database
-	const options = await db.getOptions();
-	if (options) {
-		params.optionNames = options.map((choice) => choice.language);
-		params.optionCounts = options.map((choice) => choice.picks);
-	}
-	// Let the user know if there was a db error
-	else params.error = data.errorMessage;
-
-	// Check in case the data is empty or not setup yet
-	if (options && params.optionNames.length < 1)
-		params.setup = data.setupMessage;
-
-	// ADD PARAMS FROM TODO HERE
-
 	// Send the page options or raw JSON data if the client requested it
 	return request.query.raw
 		? reply.send(params)
@@ -101,15 +86,6 @@ fastify.post("/", async (request, reply) => {
 	params.results = true;
 	let options;
 
-	// We have a vote - send to the db helper to process and return results
-	if (request.body.language) {
-		options = await db.processVote(request.body.language);
-		if (options) {
-			// We send the choices and numbers in parallel arrays
-			params.optionNames = options.map((choice) => choice.language);
-			params.optionCounts = options.map((choice) => choice.picks);
-		}
-	}
 	params.error = options ? null : data.errorMessage;
 
 	// Return the info to the client
@@ -133,14 +109,11 @@ fastify.get("/artists", async (request, reply) => {
 			if (nameA > nameB) {
 				return 1;
 			}
-			
+
 			// names must be equal
 			return 0;}}))
-
 		params.artists = artists;
 	}
-
-	console.log(artists);
  
 	return request.query.raw
 	? reply.send(params)
@@ -210,6 +183,16 @@ fastify.post("/reset", async (request, reply) => {
 		? reply.status(status).send(params)
 		: reply.status(status).view("/src/pages/logs.hbs", params);
 });
+
+/**
+ * Create a livereload server
+ * TODO: switch launch between production/development 
+ * TODO: embed script instead of using template
+ */
+
+var livereload = require('livereload');
+var server = livereload.createServer({exts: 'html,css,js,hbs'});
+server.watch(__dirname + "/src");
 
 // Run the server and report out to the logs
 fastify.listen(
