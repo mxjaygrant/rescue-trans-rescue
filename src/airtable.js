@@ -59,7 +59,7 @@ module.exports = {
 	 *
 	 * Return choice and time fields from all records in the Log table
 	 */
-/* 	getLogs: async () => {
+	getLogs: async () => {
 		// Return most recent 20
 		try {
 			// Return most recent 20
@@ -78,7 +78,7 @@ module.exports = {
 		} catch (dbError) {
 			console.error(dbError);
 		} 
-	}, */
+	}, 
 
 	/**
 	 * Clear logs and reset votes

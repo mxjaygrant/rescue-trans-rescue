@@ -37,7 +37,13 @@ fastify.register(require("@fastify/formbody"));
 fastify.register(require("@fastify/view"), {
 	engine: {
 		handlebars: require("handlebars"),
-	},
+	}, options: {
+		partials: {
+			head: 'src/pages/partials/head.hbs',
+			header: 'src/pages/partials/header.hbs',
+			footer: 'src/pages/partials/footer.hbs'
+		}
+	}
 });
 
 // Load and parse SEO data
@@ -71,34 +77,17 @@ fastify.get("/", async (request, reply) => {
 		: reply.view("/src/pages/index.hbs", params);
 });
 
-/**
- * Post route to process user vote
- *
- * Retrieve vote from body data
- * Send vote to database helper
- * Return updated list of votes
- */
-fastify.post("/", async (request, reply) => {
-	// We only send seo if the client is requesting the front-end ui
-	let params = request.query.raw ? {} : { seo: seo };
+fastify.get("/signup", async (request, reply) => {
+	let params = request.query.raw ? {} : { seo: seo};
 
-	// Flag to indicate we want to show the poll results instead of the poll form
-	params.results = true;
-	let options;
-
-	params.error = options ? null : data.errorMessage;
-
-	// Return the info to the client
 	return request.query.raw
-		? reply.send(params)
-		: reply.view("/src/pages/index.hbs", params);
+	? reply.send(params)
+	: reply.view("/src/pages/signup.hbs", params);
 });
-
 
 fastify.get("/artists", async (request, reply) => {
 	let params = request.query.raw ? {} : { seo: seo };
 
-	params.results = false;
 	const artists = await db.getArtists();
 	if (artists) {
 		artists.sort(((a,b) => {{  const nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -191,6 +180,8 @@ fastify.post("/reset", async (request, reply) => {
  */
 
 var livereload = require('livereload');
+const { request } = require("http");
+const { partials } = require("handlebars");
 var server = livereload.createServer({exts: 'html,css,js,hbs'});
 server.watch(__dirname + "/src");
 

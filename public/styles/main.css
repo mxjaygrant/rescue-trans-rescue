@@ -117,7 +117,7 @@ a:after {
 /* Footer */
 /**********/
 
-#footer {
+footer {
   display: flex;
   justify-content: space-between;
   margin: 1rem auto 0;
@@ -126,8 +126,8 @@ a:after {
   flex-wrap: wrap;
 }
 
-#footer a:visited,
-#footer a:link {
+footer a:visited,
+footer a:link {
   color: var(--color-primary);
   text-decoration: none;
   border-style: none;
