@@ -1,0 +1,43 @@
+{{> header}}
+
+			<div class="content" role="main">
+				<h1 class="title">Inventory</h1>
+
+				    <p>
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis in perferendis adipisci quia et cupiditate, modi beatae magni asperiores. Maiores excepturi optio ab, sequi qui vero fuga corporis consectetur tenetur!
+					</p>
+						
+					<details id="expand-all">
+						<summary>toggle all items</summary>
+					</details> 
+
+				<!-- begin templating -->
+				
+				{{#if error}}
+					<p class="error">{{error}}</p>
+				{{else}}
+				{{#if inventory}}
+					<div class="inventory-grid" id="inventory-grid">
+						{{#each inventory as | item |}}
+							<div class="item">
+								<a href="item?id={{item.id}}"><img src="{{item.image.0.url}}" alt="{{item.altText}}" height="250" width="250" /></a>
+								<details>
+									<summary>{{item.item}} ${{item.basePrice}}</summary>
+									<p>{{item.description}}</p>
+								</details>
+							</div>
+						{{/each}}
+					</div>
+				{{/if}}
+				<div>
+					<p>Uh-oh, it looks like we're having problems!</p>
+				</div>
+				{{/if}}
+					
+				<!-- end templating -->
+			</div>
+
+			{{> footer}}
+		</div>
+	</body>
+</html>

@@ -28,7 +28,7 @@ module.exports = {
 				.select()
 				.firstPage();
 
-				return artists.map(artists => artists.fields);
+			return artists.map(artists => artists.fields);
 		} catch (dbError) {
 			// Database connection error
 			console.error(dbError);
@@ -79,6 +79,22 @@ module.exports = {
 			console.error(dbError);
 		} 
 	}, 
+
+	getInventory: async () => {
+		if (!base) return [];
+
+		try {
+			let inventory = await base("inventory")
+				.select()
+				.firstPage();
+			
+			return inventory.map(inventory => inventory.fields);
+							
+		} catch (dbError) {
+			// Database connection error
+			console.error(dbError);
+		}
+	},
 
 	/**
 	 * Clear logs and reset votes

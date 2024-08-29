@@ -85,6 +85,7 @@ fastify.get("/signup", async (request, reply) => {
 	: reply.view("/src/pages/signup.hbs", params);
 });
 
+
 fastify.get("/artists", async (request, reply) => {
 	let params = request.query.raw ? {} : { seo: seo };
 
@@ -108,6 +109,18 @@ fastify.get("/artists", async (request, reply) => {
 	? reply.send(params)
 	: reply.view("/src/pages/artists.hbs", params);
 	
+});
+
+fastify.get("/inventory", async (request, reply) => {
+	let params = request.query.raw ? {} : {seo: seo};
+
+	const inventory = await db.getInventory();
+
+	params.inventory = inventory;
+
+	return request.query.raw
+	? reply.send(params)
+	: reply.view("/src/pages/inventory.hbs", params);
 });
 
 /**
